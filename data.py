@@ -45,9 +45,9 @@ def prepare_data(dataset_path, num_imgs=None):
         images = []
 
         path_ = os.path.join(dataset_path, type_)
-        for character in os.listdir(path_):
+        for i, character in enumerate(os.listdir(path_)):
             character_path = os.path.join(path_, character)
-            for i, image in enumerate(os.listdir(character_path)[:num_imgs]):
+            for image in os.listdir(character_path)[:num_imgs]:
                 labels.append(i)
                 images.append(
                     Image.open(os.path.join(character_path, image)).convert("L")
@@ -70,20 +70,14 @@ def prepare_data(dataset_path, num_imgs=None):
 
 def get_dataloaders(path, batch_size=64, num_workers=0):
     """Prepare Train & Test dataloaders
-    Augment training data using:
-        - cropping
-        - shifting (vertical/horizental)
-        - horizental flipping
-        - rotation
 
-    input: path to FER+ Folder
+    input: path to Data Folder
     output: (Dataloader, Dataloader Dataloader)"""
 
     (xtrain, ytrain), (xval, yval), (xtest, ytest) = prepare_data(path)
 
     transform = transform = transforms.Compose([transforms.ToTensor()])
 
-    
     train = CustomDataset(xtrain, ytrain, transform)
     val = CustomDataset(xval, yval, transform)
     test = CustomDataset(xtest, ytest, transform)
