@@ -157,13 +157,6 @@ if hparams["restore_epoch"]:
 
 ```
 
-    Restore point unavailable. Training from scratch.
-    
-
-    e:\Anaconda\TestML\Lib\site-packages\torch\nn\modules\lazy.py:180: UserWarning: Lazy modules are a new feature under heavy development so changes to the API or functionality can happen at any moment.
-      warnings.warn('Lazy modules are a new feature under heavy development '
-    
-
 
 ```python
 net = net.to(device)
